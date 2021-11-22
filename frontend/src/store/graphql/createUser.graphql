@@ -1,0 +1,5 @@
+mutation CreateUser($args: CreateUserInputDto!) {
+  createUser(args: $args) {
+    wasAccountCreated
+  }
+}

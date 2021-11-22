@@ -1,0 +1,10 @@
+query RefreshToken {
+  refreshToken {
+    ok
+    accessToken
+    user {
+      id
+      email
+    }
+  }
+}

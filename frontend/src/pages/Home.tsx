@@ -1,20 +1,20 @@
-import dotenv from "dotenv";
-import { useState } from "react";
-
-dotenv.config({
-  path: `${__dirname}/../.env.${process.env.NODE_ENV}`
-})
+import { useSelector } from "react-redux";
+import { meInfo } from "../store/me";
+import { Redirect } from "react-router-dom";
+import { Navbar } from "../components/Navbar";
 
 export const HomePage: React.FC<{}> = () => {
-  const [data, setData] = useState()
-  fetch(process.env.REACT_APP_API!).then(async response => {
-    const {data} = await response.json()
-    setData(data)
-  })
+  const me = useSelector(meInfo);
+
+  if (me.id === "") {
+    return <Redirect to="/login"/>;
+  }
+
   return (
     <div>
+      <Navbar/>
       <h1>home page</h1>
-      <p>{data}</p>
+      <p>{me.id}</p>
     </div>
   )
 }

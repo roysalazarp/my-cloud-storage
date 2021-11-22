@@ -1,0 +1,12 @@
+{
+  "AWSEBDockerrunVersion": "1",
+  "Image": {
+    "Name": "195261973989.dkr.ecr.eu-north-1.amazonaws.com/my-cloud-storage-backend:latest"
+  },
+  "Ports": [
+    {
+      "hostPort": 80,
+      "containerPort": 3001
+    }
+  ]
+}
