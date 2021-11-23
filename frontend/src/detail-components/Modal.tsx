@@ -2,15 +2,15 @@ import { useState } from 'react';
 import { TextButton } from './Buttons';
 import { css } from '@emotion/css';
 
-
 interface Modal {
   title: string;
-  body?: string;
   buttonText: string;
+  body?: string;
+  action?: any;
 }
 
 export const Modal: React.FC<Modal> = (props) => {
-  const { title, body, buttonText } = props;
+  const { title, body, buttonText, action, children } = props;
 
   const [open, setOpen] = useState(false)
 
@@ -24,20 +24,21 @@ export const Modal: React.FC<Modal> = (props) => {
 
   return (
     <>
-      <TextButton buttonStyle={openButtonStyle} onClick={openModal} buttonText={buttonText} />
-      {open ? 
+      <TextButton buttonStyle={buttonStyle} onClick={openModal} buttonText={buttonText} />
+      {!open ? null : 
         <div className={modalBackgroundStyle}>
           <div className={modalContainerBoxdStyle}>
             <div className={contentContainerdStyle}>
               <h1 className={headerStyle}>{title}</h1>
               {body === undefined ? null : <div className={bodyStyle}>{body}</div>}
+              {children ?? children}
               <div className={footerStyle}>
-                <TextButton buttonStyle={closeButtonStyle} onClick={closeModal} buttonText={"close"} />
+                <TextButton buttonStyle={buttonStyle} onClick={closeModal} buttonText={"close"} />
+                {!action ? null : <TextButton buttonStyle={buttonStyle} onClick={action} buttonText={"submit"} />}
               </div>
             </div>
           </div>
         </div> 
-        : null
       }
     </>
   )
@@ -74,7 +75,6 @@ const headerStyle = css`
   /* background-color: #9b7c24; */
   display: grid; 
   text-align: center;
-  font-size: 30px;
   line-height: normal;
   font-weight: normal;
 `
@@ -82,26 +82,15 @@ const headerStyle = css`
 const bodyStyle = css`
   /* background-color: aqua; */
   display: grid;
-  font-size: 22px;
 `
 
 const footerStyle = css`
   /* background-color: #00ff6a; */
-  display: grid;
-  justify-content: center;
+  display: flex;
+  justify-content: space-between;
 `
 
-const openButtonStyle = css`
-  background-color: #006CFF;
-  color: #ffffff;
-  padding: 10px;
-  border-radius: 3px;
-  &:hover {
-    background-color: #009dff;
-  }
-`
-
-const closeButtonStyle = css`
+const buttonStyle = css`
   background-color: #006CFF;
   color: #ffffff;
   padding: 10px;

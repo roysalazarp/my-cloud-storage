@@ -1,7 +1,7 @@
 import { css } from '@emotion/css';
 
 interface Button {
-  onClick: () => any;
+  onClick: any;
   buttonStyle: string;
 }
 
@@ -30,28 +30,9 @@ export const TextButton: React.FC<TextButton> = (props) => {
     <>
       <button 
         className={customButtonStyle}
-        onClick={onClick}
+        onClick={(e) => onClick(e)}
       >
         {buttonText}
-      </button>
-    </>
-  )
-}
-
-interface IconButton extends Button {
-  iconUrl: string;
-  iconUrlDescription: string;
-}
-
-export const IconButton: React.FC<IconButton> = (props) => {
-  const { onClick, buttonStyle, iconUrl, iconUrlDescription } = props;
-  return (
-    <>
-      <button 
-        className={buttonStyle}
-        onClick={onClick}
-      >
-        <img src={iconUrl} alt={iconUrlDescription} />
       </button>
     </>
   )
