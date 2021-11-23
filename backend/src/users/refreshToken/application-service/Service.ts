@@ -24,8 +24,9 @@ export default class Service implements IService {
     const token = context.req.cookies.jid;
     
     if (!token) {
-      const output = { ok: false, accessToken: "", user: null }
-      return output;
+      return { 
+        user: null
+      };
     }
     
     let payload: any = null;
@@ -33,15 +34,17 @@ export default class Service implements IService {
       payload = verify(token, process.env.REFRESH_TOKEN_SECRET!);
     } catch (err) {
       console.log(err);
-      const output = { ok: false, accessToken: "", user: null }
-      return output;
+      return { 
+        user: null
+      };
     }
     
     const user = await this.findUserById(payload.userId as string)
 
     if (!user) {
-      const output = { ok: false, accessToken: "", user: null }
-      return output;
+      return { 
+        user: null
+      };
     }
 
     const accessToken = createRefreshToken(user)
@@ -50,7 +53,9 @@ export default class Service implements IService {
 
     console.log(user)
     
-    return { ok: true, accessToken: accessToken, user: user };
+    return { 
+      user: user
+    };
   }
 
   private async findUserById (id: string): Promise<UserOutputDto> {

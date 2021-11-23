@@ -32,7 +32,6 @@ export type LoginInputDto = {
 
 export type LoginOutputDto = {
   __typename?: 'LoginOutputDto';
-  accessToken: Scalars['String'];
   user: UserOutputDto;
 };
 
@@ -63,8 +62,6 @@ export type Query = {
 
 export type RefreshTokenOutputDto = {
   __typename?: 'RefreshTokenOutputDto';
-  accessToken: Scalars['String'];
-  ok: Scalars['Boolean'];
   user: UserOutputDto;
 };
 
@@ -97,7 +94,7 @@ export type LoginMutationVariables = Exact<{
 }>;
 
 
-export type LoginMutation = { __typename?: 'Mutation', login: { __typename?: 'LoginOutputDto', accessToken: string, user: { __typename?: 'UserOutputDto', id: string, email: string } } };
+export type LoginMutation = { __typename?: 'Mutation', login: { __typename?: 'LoginOutputDto', user: { __typename?: 'UserOutputDto', id: string, email: string } } };
 
 export type LogoutMutationVariables = Exact<{ [key: string]: never; }>;
 
@@ -112,7 +109,7 @@ export type MeQuery = { __typename?: 'Query', me?: { __typename?: 'UserOutputDto
 export type RefreshTokenQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type RefreshTokenQuery = { __typename?: 'Query', refreshToken: { __typename?: 'RefreshTokenOutputDto', ok: boolean, accessToken: string, user: { __typename?: 'UserOutputDto', id: string, email: string } } };
+export type RefreshTokenQuery = { __typename?: 'Query', refreshToken: { __typename?: 'RefreshTokenOutputDto', user: { __typename?: 'UserOutputDto', id: string, email: string } } };
 
 
 export const CreateUserDocument = gql`
@@ -128,7 +125,6 @@ export type CreateUserMutationOptions = Apollo.BaseMutationOptions<CreateUserMut
 export const LoginDocument = gql`
     mutation Login($args: LoginInputDto!) {
   login(args: $args) {
-    accessToken
     user {
       id
       email
@@ -159,8 +155,6 @@ export type MeQueryResult = Apollo.QueryResult<MeQuery, MeQueryVariables>;
 export const RefreshTokenDocument = gql`
     query RefreshToken {
   refreshToken {
-    ok
-    accessToken
     user {
       id
       email

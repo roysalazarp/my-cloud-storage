@@ -4,7 +4,5 @@ import {UserOutputDto} from "../../../_shared/interfaces/Output.dto";
 @ObjectType()
 export default abstract class LoginOutputDto {
   @Field()
-  accessToken: string;
-  @Field()
   user: UserOutputDto;
 }

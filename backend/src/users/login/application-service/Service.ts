@@ -38,7 +38,6 @@ export default class Service implements IService {
     sendRefreshToken(context.res, accessToken);
 
     return {
-      accessToken: accessToken,
       user: user
     };
   }
