@@ -1,6 +1,10 @@
 import { useState } from 'react';
 import { TextButton } from './Buttons';
 import { css } from '@emotion/css';
+import { useDispatch } from "react-redux";
+import { uiAction } from "../store/ui";
+import { useSelector } from "react-redux";
+import { modal } from "../store/ui";
 
 interface Modal {
   title: string;
@@ -10,22 +14,23 @@ interface Modal {
 }
 
 export const Modal: React.FC<Modal> = (props) => {
+  const dispatch = useDispatch();
   const { title, body, buttonText, action, children } = props;
 
-  const [open, setOpen] = useState(false)
-
   const openModal = () => {
-    setOpen(true)
+    dispatch({type: uiAction.openModal.type})
+  }
+  
+  const closeModal = () => {
+    dispatch({type: uiAction.closeModal.type})
   }
 
-  const closeModal = () => {
-    setOpen(false)
-  }
+  const isModalOpen = useSelector(modal);
 
   return (
     <>
       <TextButton buttonStyle={buttonStyle} onClick={openModal} buttonText={buttonText} />
-      {!open ? null : 
+      {!isModalOpen ? null : 
         <div className={modalBackgroundStyle}>
           <div className={modalContainerBoxdStyle}>
             <div className={contentContainerdStyle}>

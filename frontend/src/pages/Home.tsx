@@ -4,8 +4,11 @@ import { Redirect } from "react-router-dom";
 import { Navbar } from "../components/Navbar";
 import { Modal } from "../detail-components/Modal";
 import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { uiAction } from "../store/ui";
 
 export const HomePage: React.FC<{}> = () => {
+  const dispatch = useDispatch();
   const [name, setName] = useState<string>("");
   
   const me = useSelector(meInfo);
@@ -15,7 +18,8 @@ export const HomePage: React.FC<{}> = () => {
   }
 
   const action = () => {
-    alert(name)
+    console.log(name)
+    dispatch({type: uiAction.closeModal.type})
   }
 
   return (

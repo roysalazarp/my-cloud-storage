@@ -1,6 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { combineReducers } from "redux";
 import { meReducer } from "./me";
+import { uiReducer } from "./ui";
 import { api } from "./middleware/api";
 import {
   persistStore,
@@ -22,6 +23,7 @@ const persistConfig = {
 
 const entitiesReducer = combineReducers({
   me: meReducer,
+  ui: uiReducer,
 })
 
 const reducer = combineReducers({
